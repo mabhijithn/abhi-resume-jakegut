@@ -1,0 +1,27 @@
+name: Build Resume PDF
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up LaTeX
+        uses: dante-ev/latex-action@v2
+        with:
+          root_file: resume.tex
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: resume-pdf
+          path: resume.pdf
