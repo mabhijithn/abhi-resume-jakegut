@@ -25,3 +25,15 @@ jobs:
         with:
           name: resume-pdf
           path: resume.pdf
+
+      - name: Copy PDF to build directory
+        run: |
+          mkdir -p build
+          cp resume.pdf build/
+
+      - name: Commit and push PDF to build directory
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: update built resume.pdf [ci skip]'
+          file_pattern: 'build/resume.pdf'
+          branch: ${{ github.ref_name }}
